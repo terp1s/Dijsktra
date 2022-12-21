@@ -3,6 +3,7 @@ using System.Linq;
 class Vertex
 {
     public int Vzdalenost { get; set; } = int.MaxValue;
+    public int Index { get; set; }
     public enum ennum { N, O, U };
 
     public ennum status = ennum.N;

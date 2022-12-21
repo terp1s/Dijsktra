@@ -3,7 +3,7 @@
 class Graf
 {
     public int Cesta { get; set; }
-    public Vertex[] Vrcholy { get; set; }
+    public List<Vertex> Vrcholy { get; set; } = new List<Vertex>();
     public List<Edge> Edges { get; set; } = new List<Edge>();
 
     public int NejratsiCesta (Vertex start, Vertex cil)
@@ -12,11 +12,19 @@ class Graf
         que.Enqueue (start);
         start.Vzdalenost = 0;
 
-        while(cil.status != Vertex.ennum.U)
+        while(cil.status != Vertex.ennum.U && que.Count != 0)
         {
             que.Dequeue().Projdi(que);
         }
 
-        return cil.Vzdalenost;
+        if(cil.status == Vertex.ennum.U)
+        {
+            return cil.Vzdalenost;
+        }
+        else
+        {
+            return -1;
+        }
+        
     }
 }

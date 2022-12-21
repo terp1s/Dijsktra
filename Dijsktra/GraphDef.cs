@@ -21,7 +21,7 @@ class GraphDef
     public static Graf Nacti(int pocetVrcholu, int pocetHran, (int a,int b,int s)[] hrany)
     {
         Graf graf = new Graf();
-        graf.Vrcholy = new Vertex[pocetVrcholu];
+        
 
         hrany = hrany.OrderByDescending(t => t.Item3).ToArray();
         hrany = hrany.Reverse().ToArray();
@@ -29,8 +29,8 @@ class GraphDef
         for (int i = 0; i < pocetVrcholu; i++)
         {
             Vertex vertex = new Vertex();
-            graf.Vrcholy[i] = vertex;
-            
+            graf.Vrcholy.Add(vertex);
+            vertex.Index = i;
         }
 
         foreach((int a,int b,int s) hrana in hrany)
