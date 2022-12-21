@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 class Vertex
 {
     public int Vzdalenost { get; set; } = int.MaxValue;
@@ -12,13 +13,13 @@ class Vertex
     {
         foreach(Edge e in Hrany)
         {
-            Vertex druhy = e.Vrcholy.Item1 == this ? e.Vrcholy.Item1 : e.Vrcholy.Item2;
+            Vertex druhy = e.Vrcholy.Item1 == this ? e.Vrcholy.Item2 : e.Vrcholy.Item1;
 
             if (druhy.status == ennum.N)
             {
                 q.Enqueue(druhy);
                 druhy.status = ennum.O;
-                druhy.Vzdalenost = this.Vzdalenost = e.Delka;
+                druhy.Vzdalenost = this.Vzdalenost + e.Delka;
             }
             else if (druhy.status == ennum.O)
             {

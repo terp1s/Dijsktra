@@ -1,9 +1,30 @@
-﻿class GraphDef
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class GraphDef
 {
+    public static Graf Nacti2()
+    {
+        string[] vrchran = Console.ReadLine().Split();
+        int vrcholy = int.Parse(vrchran[0]);
+        int hrany = int.Parse(vrchran[1]);
+        (int, int, int)[] hrana = new (int, int, int)[hrany];
+
+        for (int i = 0; i < hrany; i++)
+        {
+            hrana[i] = Console.ReadLine().Split() switch {var x => (int.Parse(x[0]), int.Parse(x[1]), int.Parse(x[2]))};
+        }
+
+        return Nacti(vrcholy, hrany, hrana);
+    }
     public static Graf Nacti(int pocetVrcholu, int pocetHran, (int a,int b,int s)[] hrany)
     {
         Graf graf = new Graf();
-        List<(int a, int b, int s)> trojice = (List<(int a, int b, int s)>)hrany.OrderBy(x => x.s); 
+        graf.Vrcholy = new Vertex[pocetVrcholu];
+
+        hrany = hrany.OrderByDescending(t => t.Item3).ToArray();
+        hrany = hrany.Reverse().ToArray();
 
         for (int i = 0; i < pocetVrcholu; i++)
         {
@@ -11,8 +32,6 @@
             graf.Vrcholy[i] = vertex;
             
         }
-
-
 
         foreach((int a,int b,int s) hrana in hrany)
         {
@@ -26,7 +45,6 @@
             graf.Edges.Add(edge);
 
         }
-
 
         return graf;    
     }
